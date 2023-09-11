@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:LinkedList"
+      name = "LinkedList">
+      <Group
+         location = "group:LinkedList"
+         name = "LinkedList">
+         <FileRef
+            location = "group:main.swift">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:LinkedList.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:LinkedListInterviews"
+      name = "LinkedListInterviews">
+      <FileRef
+         location = "group:LinkedListInterviews.xcodeproj">
+      </FileRef>
+      <Group
+         location = "group:LinkedListInterviews"
+         name = "LinkedListInterviews">
+         <FileRef
+            location = "group:main.swift">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:MergeSortedArrays"
+      name = "MergeSortedArrays">
+      <Group
+         location = "group:MergeSortedArrays"
+         name = "MergeSortedArrays">
+         <FileRef
+            location = "group:main.swift">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:MergeSortedArrays.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:DynamicArray/DynamicArray.xcodeproj">
+   </FileRef>
+</Workspace>
