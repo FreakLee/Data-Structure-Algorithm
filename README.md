@@ -5,3 +5,4 @@
 * [复杂度](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/01-%E5%A4%8D%E6%9D%82%E5%BA%A6.md)
 * [数组](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/02-%E6%95%B0%E7%BB%84.md)
 * [链表](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/03-%E9%93%BE%E8%A1%A8.md)
+* [栈](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/04-%E6%A0%88.md)
