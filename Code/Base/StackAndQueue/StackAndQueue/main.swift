@@ -260,3 +260,209 @@ print("Back to Page: \(browser.back() ?? "N/A")")
 print("Back to Page: \(browser.back() ?? "N/A")")
 print("Forward to Page: \(browser.forward() ?? "N/A")")
 
+
+//MARK: 队列的基本操作与实现
+
+struct Queue<T> {
+    private var elements: [T] = []
+
+    mutating func enqueue(_ element: T) {
+        elements.append(element)
+    }
+
+    @discardableResult mutating func dequeue() -> T? {
+        if elements.isEmpty {
+            return nil
+        } else {
+            return elements.removeFirst()
+        }
+    }
+
+    @discardableResult func front() -> T? {
+        return elements.first
+    }
+
+    var isEmpty: Bool {
+        return elements.isEmpty
+    }
+
+    var size: Int {
+        return elements.count
+    }
+    
+    mutating func clear() {
+        elements.removeAll()
+    }
+}
+
+// 示例用法
+var queue = Queue<Int>()
+
+//入队
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+
+//出队
+queue.dequeue() //Optional(1)
+
+//获取对头元素
+queue.front()   // 输出: Optional(2)
+
+//获取队列长度
+print(queue.size)      // 输出: 2
+//判断队列是否为空
+print(queue.isEmpty)   // 输出: false
+//清空队列
+queue.clear()
+
+//MARK: 队列的常见应用
+
+//广度优先搜索（BFS）
+
+class Node {
+    var value: Int
+    var neighbors: [Node]
+    var visited: Bool
+    
+    init(value: Int, neighbors: [Node]) {
+        self.value = value
+        self.neighbors = neighbors
+        self.visited = false
+    }
+}
+
+///广度优先搜索是一种图遍历算法，常用于查找图或树中的最短路径或最小步数。队列在 BFS 中被用于存储待访问的节点，以确保按照广度的顺序进行遍历
+func breadthFirstSearch(startNode: Node, targetValue: Int) -> Bool {
+    var queue = Queue<Node>()
+    
+    queue.enqueue(startNode)
+    startNode.visited = true
+    
+    while !queue.isEmpty {
+        let currentNode = queue.dequeue()!
+        
+        if currentNode.value == targetValue {
+            return true
+        }
+        
+        for neighbor in currentNode.neighbors {
+            if !neighbor.visited {
+                queue.enqueue(neighbor)
+                neighbor.visited = true
+            }
+        }
+    }
+    
+    return false
+}
+
+// 示例用法
+var node1 = Node(value: 1, neighbors: [])
+var node2 = Node(value: 2, neighbors: [])
+var node3 = Node(value: 3, neighbors: [])
+var node4 = Node(value: 4, neighbors: [])
+var node5 = Node(value: 5, neighbors: [])
+
+node1.neighbors = [node2, node3]
+node2.neighbors = [node4, node5]
+
+let res = breadthFirstSearch(startNode: node1, targetValue: 5)
+print(res) //true
+
+
+//缓存管理
+
+///队列在缓存管理中常用于实现 LRU（Least Recently Used，最近最少使用）策略。当缓存大小有限时，队列可以被用来存储缓存的数据项，并在缓存满时移除最早使用的数据项。
+struct LRUCache<Key: Hashable, Value> {
+    private let capacity: Int
+    private var cache: [Key: Value]
+    private var keyQueue: Queue<Key>
+
+    init(capacity: Int) {
+        self.capacity = capacity
+        self.cache = [:]
+        self.keyQueue = Queue<Key>()
+    }
+
+    mutating func getValue(forKey key: Key) -> Value? {
+        if let value = cache[key] {
+            // 将最近使用的键移到队列的尾部
+            keyQueue.enqueue(key)
+            return value
+        } else {
+            return nil
+        }
+    }
+
+    mutating func setValue(_ value: Value, forKey key: Key) {
+        if cache[key] == nil {
+            // 缓存中不存在该键，将新键加入队列尾部
+            keyQueue.enqueue(key)
+        }
+
+        // 更新缓存值
+        cache[key] = value
+
+        // 如果缓存已满，移除最近最少使用的键
+        if keyQueue.size > capacity {
+            if let removedKey = keyQueue.dequeue() {
+                cache[removedKey] = nil
+            }
+        }
+    }
+}
+
+// 示例用法
+var cache = LRUCache<String, Int>(capacity: 3)
+cache.setValue(1, forKey: "a")
+cache.setValue(2, forKey: "b")
+cache.setValue(3, forKey: "c")
+cache.setValue(4, forKey: "d")
+
+print(cache.getValue(forKey: "a")) //nil
+print(cache.getValue(forKey: "b")) //Optional(2)
+
+
+//任务调度
+
+///队列在任务调度中被用于管理待执行的任务。新任务可以添加到任务队列，而调度器可以从队列中取出任务并执行。
+struct Task {
+    var name: String
+    var priority: Int
+}
+
+struct TaskScheduler {
+    private var taskQueue: [Task]
+
+    init() {
+        self.taskQueue = []
+    }
+
+    mutating func addTask(_ task: Task) {
+        taskQueue.append(task)
+    }
+
+    mutating func executeTasks() {
+        taskQueue.sort(by: { $0.priority < $1.priority }) // 根据任务优先级排序数组
+
+        for task in taskQueue {
+            print("Executing task: \(task.name)")
+        }
+
+        taskQueue.removeAll() // 清空数组
+    }
+}
+
+// 示例用法
+var scheduler = TaskScheduler()
+scheduler.addTask(Task(name: "Task 1", priority: 1))
+scheduler.addTask(Task(name: "Task 2", priority: 2))
+scheduler.addTask(Task(name: "Task 3", priority: 1))
+scheduler.addTask(Task(name: "Task 4", priority: 3))
+
+scheduler.executeTasks()
+// Executing task: Task 1
+// Executing task: Task 3
+// Executing task: Task 2
+// Executing task: Task 4
