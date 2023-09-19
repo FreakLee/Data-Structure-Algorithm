@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:AddTwoNumbers/AddTwoNumbers.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TwoSum/TwoSum.xcodeproj">
    </FileRef>
 </Workspace>
