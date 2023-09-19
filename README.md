@@ -7,6 +7,7 @@
 * [链表](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/03-%E9%93%BE%E8%A1%A8.md)
 * [栈](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/04-%E6%A0%88.md)
 * [队列](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/05-%E9%98%9F%E5%88%97.md)
+* [哈希表](https://github.com/FreakLee/Data-Structure-Algorithm/blob/main/Notes/06-%E5%93%88%E5%B8%8C%E8%A1%A8.md)
 
 ## 第二部分、LeetCode题解
 * [两数之和](https://github.com/FreakLee/Data-Structure-Algorithm/tree/main/Code/LeetCode/TwoSum)
